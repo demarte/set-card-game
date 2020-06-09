@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22A929BC248F10AA00E9C0B8 /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A929BB248F10AA00E9C0B8 /* Squiggle.swift */; };
 		2C558BEC248E5C1100FD6F92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C558BEB248E5C1100FD6F92 /* AppDelegate.swift */; };
 		2C558BEE248E5C1100FD6F92 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C558BED248E5C1100FD6F92 /* SceneDelegate.swift */; };
 		2C558BF0248E5C1100FD6F92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C558BEF248E5C1100FD6F92 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		22A929BB248F10AA00E9C0B8 /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
 		2C558BE8248E5C1100FD6F92 /* Set Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Set Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C558BEB248E5C1100FD6F92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C558BED248E5C1100FD6F92 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				2C558C04248E5C7000FD6F92 /* Grid */,
 				2C558C0A248E5CF800FD6F92 /* Diamond.swift */,
+				22A929BB248F10AA00E9C0B8 /* Squiggle.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			files = (
 				2C558BEC248E5C1100FD6F92 /* AppDelegate.swift in Sources */,
 				2C558BEE248E5C1100FD6F92 /* SceneDelegate.swift in Sources */,
+				22A929BC248F10AA00E9C0B8 /* Squiggle.swift in Sources */,
 				2C558C0B248E5CF800FD6F92 /* Diamond.swift in Sources */,
 				2C558BF0248E5C1100FD6F92 /* ContentView.swift in Sources */,
 				2C558C02248E5C4600FD6F92 /* Grid.swift in Sources */,

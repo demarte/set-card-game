@@ -11,16 +11,15 @@ import SwiftUI
 struct Diamond: Shape {
   
   func path(in rect: CGRect) -> Path {
+
+    let height = rect.height * 0.65
     let left = CGPoint(x: rect.minX, y: rect.height / 2)
     let top = CGPoint(x: rect.width / 2, y: height)
     let right = CGPoint(x: rect.width, y: rect.height / 2)
     let bottom = CGPoint(x: rect.width / 2, y: rect.minY + (rect.height - height))
+
     var path = Path()
     path.addLines([left, top, right, bottom])
     return path
   }
-  
-  // MARK: - Constants -
-  
-  let height = rect.height * 0.65
 }
