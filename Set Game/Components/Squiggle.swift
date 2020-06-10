@@ -11,10 +11,10 @@ import SwiftUI
 struct Squiggle: Shape {
 
   func path(in rect: CGRect) -> Path {
+    let scaleFactor = rect.width / 107.8
     var path = Path()
 
     path.move(to: CGPoint(x: 104, y: 15))
-    
     path.addCurve(
       to: CGPoint(x: 63.0, y: 54.0),
       control1: CGPoint(x: 112.4, y: 36.9),
@@ -45,8 +45,17 @@ struct Squiggle: Shape {
       control1: CGPoint(x: 95.3, y: 10.0),
       control2: CGPoint(x: 100.9, y: 6.9)
     )
+    
+    var transform = CGAffineTransform(translationX: offsetTranslationX, y: 0)
+    transform = transform.scaledBy(x: scaleFactor, y: scaleFactor)
+    path = path.applying(transform)
+    
     return path
   }
+  
+  // MARK: - Drawing Constants -
+  
+  let offsetTranslationX: CGFloat = -5
 
 }
 
