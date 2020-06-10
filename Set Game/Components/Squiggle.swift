@@ -11,84 +11,40 @@ import SwiftUI
 struct Squiggle: Shape {
 
   func path(in rect: CGRect) -> Path {
-    let center = CGPoint(x: rect.midX, y: rect.midY)
-    let height = rect.height * 0.65
-
-    let radius = rect.height / 4
-    let startPoint = CGPoint(x: center.x, y: center.y + radius)
     var path = Path()
 
-//    path.move(to: center)
-//    path.move(to: startPoint)
-    path.addArc(
-      center: CGPoint(x: rect.width * 0.25, y: rect.height * 0.25),
-      radius: rect.width * 0.25,
-      startAngle: Angle.degrees(0),
-      endAngle: Angle.degrees(180),
-      clockwise: true
+    path.move(to: CGPoint(x: 104, y: 15))
+    
+    path.addCurve(
+      to: CGPoint(x: 63.0, y: 54.0),
+      control1: CGPoint(x: 112.4, y: 36.9),
+      control2: CGPoint(x: 89.7, y: 60.8)
     )
-
-    path.addLine(to: center)
-
-//    path.addCurve(
-//      to: CGPoint(x: rect.midX, y: rect.maxY * 0.7),
-//      control1: CGPoint(x: rect.maxX * 0.9, y: rect.maxY * 0.8),
-//      control2: CGPoint(x: rect.maxX * 0.7, y: rect.maxY * 0.8)
-//    )
-//
-//    path.addCurve(
-//      to: CGPoint(x: rect.maxX * 0.1, y: rect.maxY * 0.8),
-//      control1: CGPoint(x: rect.maxX * 0.2, y: rect.maxY * 0.5),
-//      control2: CGPoint(x: rect.maxX * 0.4, y: rect.maxY * 0.6)
-//    )
-
-
-
-//    path.addCurve(
-//      to: CGPoint(x: rect.minX, y: rect.midY),
-//      control1: CGPoint(x: rect.midX * 0.75, y: rect.midY * 0.5 - 20),
-//      control2: CGPoint(x: rect.midX * 0.25, y: rect.midY * 0.5 + 10))
-
-//    path.addCurve(
-//      to: CGPoint(x: rect.midX * 0.25, y: rect.midY + rect.midY * 0.5),
-//      control1: CGPoint(x: rect.minX, y: rect.midY + 50),
-//      control2: CGPoint(x: rect.minX, y: rect.midY + 80))
-
-//    path.addCurve(
-//      to: CGPoint(x: rect.midX, y: rect.midY + rect.midY * 0.3), control1: CGPoint(x: rect.midX * 0.2, y: rect.midY + rect.midY * 0.2),
-//      control2: CGPoint(x: rect.midX * 0.4, y: rect.midY + rect.midY * 0.2))
-
-
-    var transform = CGAffineTransform(translationX: rect.midX, y: 0)
-    //    transform = transform.scaledBy(x: 1, y: -1)
-    //    path.addPath(path, transform: transform)
-
-
-
-    //    path.addLine(to: CGPoint(x: rect.midX, y: height))
-    //    path.addArc(
-    //      center: center,
-    //      radius: radius,
-    //      startAngle: Angle.degrees(0 - 90),
-    //      endAngle: Angle.degrees(270 - 90),
-    //      clockwise: true
-    //    )
-    //    path.move(to: center)
-    //    path.addArc(
-    //      center: CGPoint(x: rect.midX, y: height + radius),
-    //      radius: radius,
-    //      startAngle: Angle.degrees(0 - 90),
-    //      endAngle: Angle.degrees(270 - 90),
-    //      clockwise: false
-    //    )
-    //    path.move(to: CGPoint(x: rect.midX, y: rect.minY + radius))
-    //    path.addArc(
-    //          center: CGPoint(x: rect.midX, y: height + radius),
-    //          radius: radius,
-    //          startAngle: Angle.degrees(0 - 90),
-    //          endAngle: Angle.degrees(270 - 90),
-    //          clockwise: false
-    //        )
+    path.addCurve(
+      to: CGPoint(x: 27.0, y: 53.0),
+      control1: CGPoint(x: 52.3, y: 51.3),
+      control2: CGPoint(x: 42.2, y: 42.0)
+    )
+    path.addCurve(
+      to: CGPoint(x: 5.0, y: 40.0),
+      control1: CGPoint(x: 9.6, y: 65.6),
+      control2: CGPoint(x: 5.4, y: 58.3)
+    )
+    path.addCurve(
+      to: CGPoint(x: 36.0, y: 12.0),
+      control1: CGPoint(x: 4.6, y: 22.0),
+      control2: CGPoint(x: 19.1, y: 9.7)
+    )
+    path.addCurve(
+      to: CGPoint(x: 89.0, y: 14.0),
+      control1: CGPoint(x: 59.2, y: 15.2),
+      control2: CGPoint(x: 61.9, y: 31.5)
+    )
+    path.addCurve(
+      to: CGPoint(x: 104.0, y: 15.0),
+      control1: CGPoint(x: 95.3, y: 10.0),
+      control2: CGPoint(x: 100.9, y: 6.9)
+    )
     return path
   }
 
@@ -96,6 +52,6 @@ struct Squiggle: Shape {
 
 struct Squiggle_Preview: PreviewProvider {
   static var previews: some View {
-    Squiggle()
+    Squiggle().stroke()
   }
 }
