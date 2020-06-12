@@ -10,12 +10,19 @@ import Foundation
 
 struct SetGame {
   
-  let maximumCardsFaceUp = 12
   private(set) var cards: Array<Card>
   
   init() {
     cards = Array<Card>()
     setUpCardGame()
+  }
+  
+  private var numberOfSelectedCards: Int {
+    cards.reduce(into: 0) { result, card in
+      if card.isSelected {
+        result += 1
+      }
+    }
   }
   
   private mutating func setUpCardGame() {
@@ -36,6 +43,20 @@ struct SetGame {
     cards.shuffle()
   }
   
+  mutating func selectCard(card: Card) {
+    if let cardIndex = cards.firstIndex(matching: card),
+      numberOfSelectedCards < maximumCardSelectedPerRound {
+      cards[cardIndex].isSelected.toggle()
+    }
+    print(numberOfSelectedCards)
+  }
+  
+  // MARK: - Constants -
+  
+  let maximumCardsFaceUp = 12
+  let maximumCardSelectedPerRound = 3
+  
+  // MARK: - Card Struct -
   
   struct Card: Identifiable {
     let id: String
@@ -43,6 +64,8 @@ struct SetGame {
     let number: Number
     let shading: Shading
     let symbol: Symbol
+    var isMatched: Bool
+    var isSelected: Bool
     
     init(color: Color, number: Number, shading: Shading, symbol: Symbol) {
       self.id = UUID().uuidString
@@ -50,6 +73,8 @@ struct SetGame {
       self.number = number
       self.shading = shading
       self.symbol = symbol
+      self.isMatched = false
+      self.isSelected = false
     }
     
     enum Color: CaseIterable {

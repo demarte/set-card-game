@@ -25,4 +25,8 @@ final class SetGameViewModel: ObservableObject {
   func placeCards() -> Array<SetGame.Card> {
     setGame.cards.suffix(setGame.maximumCardsFaceUp)
   }
+  
+  func selectCard(card: SetGame.Card) {
+    setGame.selectCard(card: card)
+  }
 }

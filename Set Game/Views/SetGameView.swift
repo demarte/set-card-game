@@ -17,6 +17,9 @@ struct SetGameView: View {
       Grid(game.placeCards()) { card in
         CardView(card: card)
         .padding()
+        .onTapGesture {
+          self.game.selectCard(card: card)
+        }
       }
     }
   }

@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CardView: View {
   
-  @State var isSelected: Bool = false
   var card: SetGame.Card
   
   var body: some View {
@@ -20,12 +19,9 @@ struct CardView: View {
         .foregroundColor(self.color())
     }
     .cardify(isFaceUp: true)
-    .foregroundColor(isSelected ? Color.blue : Color.black)
-    .scaleEffect(isSelected ? 1.1 : 1)
+    .foregroundColor(card.isSelected ? Color.blue : Color.black)
+    .scaleEffect(card.isSelected ? 1.1 : 1)
     .animation(Animation.easeIn(duration: 0.1))
-    .onTapGesture {
-      self.isSelected.toggle()
-    }
   }
   
   private func symbol(for number: SetGame.Card.Number) -> some View {
