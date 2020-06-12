@@ -20,6 +20,13 @@ struct Diamond: Shape {
 
     var path = Path()
     path.addLines([left, top, right, bottom])
+    path.closeSubpath()
     return path
+  }
+}
+
+struct Diamond_Preview: PreviewProvider {
+  static var previews: some View {
+    Diamond().stroke()
   }
 }

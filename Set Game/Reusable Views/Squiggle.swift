@@ -11,7 +11,7 @@ import SwiftUI
 struct Squiggle: Shape {
 
   func path(in rect: CGRect) -> Path {
-    let scaleFactor = rect.width / 107.8
+    let scaleFactor = rect.width / 140
     var path = Path()
 
     path.move(to: CGPoint(x: 104, y: 15))
@@ -61,6 +61,6 @@ struct Squiggle: Shape {
 
 struct Squiggle_Preview: PreviewProvider {
   static var previews: some View {
-    Squiggle().stroke()
+    Squiggle()
   }
 }
