@@ -12,10 +12,12 @@ struct SetGame {
   
   private(set) var cards: Array<Card>
   private(set) var discardPile: Array<Card>
+  private(set) var gamePile: Array<Card>
   
   init() {
     cards = []
     discardPile = []
+    gamePile = []
     setUpCardGame()
   }
   
@@ -41,30 +43,42 @@ struct SetGame {
     cards.shuffle()
   }
   
+  private mutating func deselectAll() {
+    
+  }
+  
   mutating func choose(card: Card) {
-    if let cardIndex = cards.firstIndex(matching: card),
-      choosenCards.count < maximumChoosenCardsPerRound {
-      cards[cardIndex].isSelected.toggle()
-      if choosenCards.count == maximumChoosenCardsPerRound {
+    if let cardIndex = cards.firstIndex(matching: card) {
+      if choosenCards.count < maximumChoosenCardsPerRound {
+        cards[cardIndex].isSelected.toggle()
+      } else {
+        deselectAll()
+      }
+    }
+  }
+  
+  mutating func dealThreeCards() {
+    if choosenCards.count == maximumChoosenCardsPerRound {
+      
+      if let firstIndex = cards.firstIndex(matching: choosenCards.first!),
+        let secondIndex = cards.firstIndex(matching: choosenCards.second!),
+        let thirdIndex = cards.firstIndex(matching: choosenCards.third!) {
         
-        if let firstIndex = cards.firstIndex(matching: choosenCards.first!),
-          let secondIndex = cards.firstIndex(matching: choosenCards.second!),
-          let thirdIndex = cards.firstIndex(matching: choosenCards.third!) {
-          
-          if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
-            print("Match!!")
-            
-            discardPile.append(cards.remove(at: firstIndex))
-            discardPile.append(cards.remove(at: secondIndex))
-            discardPile.append(cards.remove(at: thirdIndex))
-            
-          } else {
-            print("No match!")
-            cards[firstIndex].isSelected = false
-            cards[secondIndex].isSelected = false
-            cards[thirdIndex].isSelected = false
-          }
+        if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
+          discardPile.append(cards.remove(at: firstIndex))
+          discardPile.append(cards.remove(at: secondIndex))
+          discardPile.append(cards.remove(at: thirdIndex))
         }
+      }
+    } else {
+      placeMoreCards()
+    }
+  }
+  
+  private mutating func placeMoreCards() {
+    for _ in 0..<numberOfNewCardsPlaced {
+      if cards.count > 0 {
+        gamePile.append(cards.removeFirst())
       }
     }
   }
@@ -78,12 +92,13 @@ struct SetGame {
       Card.compare(first: first.symbol.rawValue, second: second.symbol.rawValue, third: third.symbol.rawValue)
   }
   
-  func placeCards() -> Array<Card> {
-    cards.suffix(maximumCardsFaceUp)
+  mutating func placeCards() {
+    gamePile = cards.suffix(maximumCardsFaceUp)
   }
   
   // MARK: - Constants -
   
   private let maximumCardsFaceUp = 12
   private let maximumChoosenCardsPerRound = 3
+  private let numberOfNewCardsPlaced = 3
 }

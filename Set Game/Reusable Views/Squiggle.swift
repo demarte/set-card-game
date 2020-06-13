@@ -11,7 +11,7 @@ import SwiftUI
 struct Squiggle: Shape {
 
   func path(in rect: CGRect) -> Path {
-    let scaleFactor = rect.width / 140
+    let scaleFactor = rect.width / 150
     var path = Path()
 
     path.move(to: CGPoint(x: 104, y: 15))

@@ -13,15 +13,25 @@ struct SetGameView: View {
   @ObservedObject var game: SetGameViewModel
   
   var body: some View {
-    VStack {
-      Grid(game.placeCards()) { card in
-        CardView(card: card)
-          .padding()
-          .animation(.easeIn(duration: 1))
-          .onTapGesture {
-            self.game.choose(card: card)
+    NavigationView {
+      VStack {
+        Grid(game.gamePile) { card in
+          CardView(card: card)
+            .padding()
+            .animation(.easeIn(duration: 1))
+            .onTapGesture {
+              self.game.choose(card: card)
+          }
         }
+        Button("Deal 3 More Cards") {
+          self.game.dealThreeCards()
+        }
+        .disabled(game.cards.count > 0 ? false : true)
       }
+      .navigationBarTitle("Set Card Game")
+      .navigationBarItems(trailing: Button("New Game") {
+        print("new game")
+    })
     }
   }
 }
