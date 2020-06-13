@@ -11,7 +11,8 @@ import SwiftUI
 struct Squiggle: Shape {
 
   func path(in rect: CGRect) -> Path {
-    let scaleFactor = rect.width / 150
+    let scaleFactor = rect.width / 110
+    let transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
     var path = Path()
 
     path.move(to: CGPoint(x: 104, y: 15))
@@ -45,22 +46,14 @@ struct Squiggle: Shape {
       control1: CGPoint(x: 95.3, y: 10.0),
       control2: CGPoint(x: 100.9, y: 6.9)
     )
-    
-    var transform = CGAffineTransform(translationX: offsetTranslationX, y: 0)
-    transform = transform.scaledBy(x: scaleFactor, y: scaleFactor)
     path = path.applying(transform)
-    
+    path.move(to: CGPoint(x: rect.midX, y: rect.midY))
     return path
   }
-  
-  // MARK: - Drawing Constants -
-  
-  private let offsetTranslationX: CGFloat = -5
-
 }
 
 struct Squiggle_Preview: PreviewProvider {
   static var previews: some View {
-    Squiggle()
+    Squiggle().background(Color.red)
   }
 }

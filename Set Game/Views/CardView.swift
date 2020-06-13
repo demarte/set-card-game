@@ -20,8 +20,8 @@ struct CardView: View {
   private func body(for card: Card) -> some View {
     VStack {
       symbol(for: card.number)
-        .padding()
         .foregroundColor(self.color())
+      .padding(2)
     }
     .cardify(isFaceUp: true)
     .foregroundColor(card.isSelected ? Color.blue : Color.black)
@@ -30,8 +30,11 @@ struct CardView: View {
   }
   
   private func symbol(for number: Card.Number) -> some View {
-    ForEach(0..<number.rawValue) { index in
+    ForEach(0..<Card.Number.allCases.count) { index in
       self.symbol()
+        .aspectRatio(3, contentMode: .fit)
+        .opacity(number.rawValue == index + 1 ? 1 : 0)
+      .padding(2)
     }
   }
   

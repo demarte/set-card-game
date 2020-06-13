@@ -22,7 +22,6 @@
 		2C558C0B248E5CF800FD6F92 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C558C0A248E5CF800FD6F92 /* Diamond.swift */; };
 		2C66FD0224952CE4001BC126 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66FD0124952CE4001BC126 /* Card.swift */; };
 		2C75A5292492F56D0070C7AA /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75A5282492F56D0070C7AA /* SetGame.swift */; };
-		2CE7732D24930DDB00CE49D9 /* Oval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7732C24930DDB00CE49D9 /* Oval.swift */; };
 		2CFF97A7249311D000D13795 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97A6249311D000D13795 /* Cardify.swift */; };
 		2CFF97AA249316C000D13795 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97A9249316C000D13795 /* CardView.swift */; };
 /* End PBXBuildFile section */
@@ -45,7 +44,6 @@
 		2C558C0A248E5CF800FD6F92 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		2C66FD0124952CE4001BC126 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		2C75A5282492F56D0070C7AA /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
-		2CE7732C24930DDB00CE49D9 /* Oval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oval.swift; sourceTree = "<group>"; };
 		2CFF97A6249311D000D13795 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		2CFF97A9249316C000D13795 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,7 +112,6 @@
 				2C558C04248E5C7000FD6F92 /* Grid */,
 				2C558C0A248E5CF800FD6F92 /* Diamond.swift */,
 				22A929BB248F10AA00E9C0B8 /* Squiggle.swift */,
-				2CE7732C24930DDB00CE49D9 /* Oval.swift */,
 				2CFF97A82493142B00D13795 /* View Modifier */,
 			);
 			path = "Reusable Views";
@@ -248,7 +245,6 @@
 			files = (
 				2C558BEC248E5C1100FD6F92 /* AppDelegate.swift in Sources */,
 				2C75A5292492F56D0070C7AA /* SetGame.swift in Sources */,
-				2CE7732D24930DDB00CE49D9 /* Oval.swift in Sources */,
 				2C558BEE248E5C1100FD6F92 /* SceneDelegate.swift in Sources */,
 				2C4860942492FF3000336FFD /* SetGameViewModel.swift in Sources */,
 				22A929BC248F10AA00E9C0B8 /* Squiggle.swift in Sources */,

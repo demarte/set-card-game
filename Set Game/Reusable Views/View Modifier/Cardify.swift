@@ -28,7 +28,7 @@ struct Cardify: ViewModifier {
   // MARK: - Drawing Constants -
   
   private let cardCornerRadius: CGFloat = 10
-  private let borderWidth: CGFloat = 3
+  private let borderWidth: CGFloat = 2
   
 }
 

@@ -10,19 +10,19 @@ import Foundation
 
 struct SetGame {
   
-  private(set) var cards: Array<Card>
+  private(set) var deck: Array<Card>
   private(set) var discardPile: Array<Card>
   private(set) var gamePile: Array<Card>
   
   init() {
-    cards = []
+    deck = []
     discardPile = []
     gamePile = []
     setUpCardGame()
   }
   
   private var choosenCards: Array<Card> {
-    cards.compactMap { $0.isSelected ? $0 : nil }
+    gamePile.compactMap { $0.isSelected ? $0 : nil }
   }
   
   private mutating func setUpCardGame() {
@@ -30,7 +30,7 @@ struct SetGame {
       for color in Card.Color.allCases {
         for symbol in Card.Symbol.allCases {
           for shadding in Card.Shading.allCases {
-            cards.append(Card(
+            deck.append(Card(
               color: color,
               number: number,
               shading: shadding,
@@ -40,34 +40,35 @@ struct SetGame {
         }
       }
     }
-    cards.shuffle()
+    deck.shuffle()
   }
   
   private mutating func deselectAll() {
-    
+    for index in gamePile.indices {
+      gamePile[index].isSelected = false
+    }
   }
   
   mutating func choose(card: Card) {
-    if let cardIndex = cards.firstIndex(matching: card) {
-      if choosenCards.count < maximumChoosenCardsPerRound {
-        cards[cardIndex].isSelected.toggle()
-      } else {
+    if let cardIndex = gamePile.firstIndex(matching: card) {
+      if choosenCards.count == maximumChoosenCardsPerRound {
         deselectAll()
       }
+      gamePile[cardIndex].isSelected.toggle()
     }
   }
   
   mutating func dealThreeCards() {
     if choosenCards.count == maximumChoosenCardsPerRound {
       
-      if let firstIndex = cards.firstIndex(matching: choosenCards.first!),
-        let secondIndex = cards.firstIndex(matching: choosenCards.second!),
-        let thirdIndex = cards.firstIndex(matching: choosenCards.third!) {
+      if let firstIndex = deck.firstIndex(matching: choosenCards.first!),
+        let secondIndex = deck.firstIndex(matching: choosenCards.second!),
+        let thirdIndex = deck.firstIndex(matching: choosenCards.third!) {
         
         if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
-          discardPile.append(cards.remove(at: firstIndex))
-          discardPile.append(cards.remove(at: secondIndex))
-          discardPile.append(cards.remove(at: thirdIndex))
+          discardPile.append(deck.remove(at: firstIndex))
+          discardPile.append(deck.remove(at: secondIndex))
+          discardPile.append(deck.remove(at: thirdIndex))
         }
       }
     } else {
@@ -77,8 +78,8 @@ struct SetGame {
   
   private mutating func placeMoreCards() {
     for _ in 0..<numberOfNewCardsPlaced {
-      if cards.count > 0 {
-        gamePile.append(cards.removeFirst())
+      if deck.count > 0 {
+        gamePile.append(deck.removeFirst())
       }
     }
   }
@@ -93,7 +94,8 @@ struct SetGame {
   }
   
   mutating func placeCards() {
-    gamePile = cards.suffix(maximumCardsFaceUp)
+    gamePile = deck.suffix(maximumCardsFaceUp)
+//    gamePile = deck
   }
   
   // MARK: - Constants -

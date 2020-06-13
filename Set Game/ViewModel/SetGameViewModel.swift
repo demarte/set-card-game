@@ -20,7 +20,7 @@ final class SetGameViewModel: ObservableObject {
   // MARK: - Access to the Model -
   
   var cards: Array<Card> {
-    setGame.cards
+    setGame.deck
   }
   
   var gamePile: Array<Card> {
