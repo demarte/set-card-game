@@ -13,15 +13,22 @@ struct CardView: View {
   var card: SetGame.Card
   
   var body: some View {
-    VStack {
-      symbol(for: card.number)
-        .padding()
-        .foregroundColor(self.color())
+    body(for: card)
+  }
+  
+  @ViewBuilder
+  private func body(for card: SetGame.Card) -> some View {
+    if !card.isMatched {
+      VStack {
+        symbol(for: card.number)
+          .padding()
+          .foregroundColor(self.color())
+      }
+      .cardify(isFaceUp: true)
+      .foregroundColor(card.isSelected ? Color.blue : Color.black)
+      .scaleEffect(card.isSelected ? 1.1 : 1)
+      .animation(Animation.easeIn(duration: 0.1))
     }
-    .cardify(isFaceUp: true)
-    .foregroundColor(card.isSelected ? Color.blue : Color.black)
-    .scaleEffect(card.isSelected ? 1.1 : 1)
-    .animation(Animation.easeIn(duration: 0.1))
   }
   
   private func symbol(for number: SetGame.Card.Number) -> some View {

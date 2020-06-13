@@ -18,4 +18,14 @@ extension Array where Element: Identifiable {
     }
     return nil
   }
+  
+  func nextIndex(of element: Element) -> Int? {
+    if let index = self.firstIndex(matching: element) {
+      let afterIndex = self.index(after: index)
+      if afterIndex < self.count {
+        return afterIndex
+      }
+    }
+    return nil
+  }
 }

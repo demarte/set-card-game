@@ -17,10 +17,37 @@ struct SetGame {
     setUpCardGame()
   }
   
-  private var numberOfSelectedCards: Int {
-    cards.reduce(into: 0) { result, card in
-      if card.isSelected {
-        result += 1
+  private var choosenCards: Array<Card> {
+    cards.compactMap { $0.isSelected ? $0 : nil }
+  }
+  
+  private func compareFeatures() {
+    
+  }
+  
+  private mutating func verifyMatch() {
+    var isMatched = false
+    for card in choosenCards {
+      if let nextIndex = choosenCards.nextIndex(of: card) {
+        let nextCard = choosenCards[nextIndex]
+        
+        if (card.color == nextCard.color &&
+          card.symbol == nextCard.symbol &&
+          card.shading == nextCard.shading &&
+          card.number == nextCard.number) ||
+          (card.color != nextCard.color &&
+            card.symbol != nextCard.symbol &&
+            card.shading != nextCard.shading &&
+            card.number != nextCard.number) {
+          isMatched = true
+        } else {
+          isMatched = false
+        }
+      }
+    }
+    for card in choosenCards {
+      if let index = cards.firstIndex(matching: card) {
+        cards[index].isMatched = isMatched
       }
     }
   }
@@ -43,22 +70,28 @@ struct SetGame {
     cards.shuffle()
   }
   
-  mutating func selectCard(card: Card) {
+  mutating func choose(card: Card) {
     if let cardIndex = cards.firstIndex(matching: card),
-      numberOfSelectedCards < maximumCardSelectedPerRound {
+      choosenCards.count < maximumChoosenCardsPerRound {
       cards[cardIndex].isSelected.toggle()
+      if choosenCards.count == maximumChoosenCardsPerRound {
+        verifyMatch()
+      }
     }
-    print(numberOfSelectedCards)
+  }
+  
+  func placeCards() -> Array<Card> {
+    cards.suffix(maximumCardsFaceUp)
   }
   
   // MARK: - Constants -
   
-  let maximumCardsFaceUp = 12
-  let maximumCardSelectedPerRound = 3
+  private let maximumCardsFaceUp = 12
+  private let maximumChoosenCardsPerRound = 3
   
   // MARK: - Card Struct -
   
-  struct Card: Identifiable {
+  struct Card: Identifiable, Equatable {
     let id: String
     let color: Color
     let number: Number

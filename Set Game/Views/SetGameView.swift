@@ -16,9 +16,11 @@ struct SetGameView: View {
     VStack {
       Grid(game.placeCards()) { card in
         CardView(card: card)
-        .padding()
-        .onTapGesture {
-          self.game.selectCard(card: card)
+          .padding()
+          .opacity(card.isMatched ? 0 : 1)
+          .animation(.easeIn(duration: 1))
+          .onTapGesture {
+            self.game.choose(card: card)
         }
       }
     }

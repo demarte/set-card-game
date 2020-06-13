@@ -55,7 +55,7 @@ struct Squiggle: Shape {
   
   // MARK: - Drawing Constants -
   
-  let offsetTranslationX: CGFloat = -5
+  private let offsetTranslationX: CGFloat = -5
 
 }
 
