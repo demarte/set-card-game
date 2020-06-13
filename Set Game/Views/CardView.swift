@@ -10,28 +10,26 @@ import SwiftUI
 
 struct CardView: View {
   
-  var card: SetGame.Card
+  var card: Card
   
   var body: some View {
     body(for: card)
   }
   
   @ViewBuilder
-  private func body(for card: SetGame.Card) -> some View {
-    if !card.isMatched {
-      VStack {
-        symbol(for: card.number)
-          .padding()
-          .foregroundColor(self.color())
-      }
-      .cardify(isFaceUp: true)
-      .foregroundColor(card.isSelected ? Color.blue : Color.black)
-      .scaleEffect(card.isSelected ? 1.1 : 1)
-      .animation(Animation.easeIn(duration: 0.1))
+  private func body(for card: Card) -> some View {
+    VStack {
+      symbol(for: card.number)
+        .padding()
+        .foregroundColor(self.color())
     }
+    .cardify(isFaceUp: true)
+    .foregroundColor(card.isSelected ? Color.blue : Color.black)
+    .scaleEffect(card.isSelected ? 1.1 : 1)
+    .animation(Animation.easeIn(duration: 0.1))
   }
   
-  private func symbol(for number: SetGame.Card.Number) -> some View {
+  private func symbol(for number: Card.Number) -> some View {
     ForEach(0..<number.rawValue) { index in
       self.symbol()
     }

@@ -17,7 +17,6 @@ struct SetGameView: View {
       Grid(game.placeCards()) { card in
         CardView(card: card)
           .padding()
-          .opacity(card.isMatched ? 0 : 1)
           .animation(.easeIn(duration: 1))
           .onTapGesture {
             self.game.choose(card: card)

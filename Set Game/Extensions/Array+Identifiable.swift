@@ -18,13 +18,21 @@ extension Array where Element: Identifiable {
     }
     return nil
   }
-  
-  func nextIndex(of element: Element) -> Int? {
-    if let index = self.firstIndex(matching: element) {
-      let afterIndex = self.index(after: index)
-      if afterIndex < self.count {
-        return afterIndex
-      }
+}
+
+extension Array {
+  var second: Element? {
+    if self.count >= 2 {
+      return self[1]
+    }
+    return nil
+  }
+}
+
+extension Array {
+  var third: Element? {
+    if self.count >= 3 {
+      return self[2]
     }
     return nil
   }

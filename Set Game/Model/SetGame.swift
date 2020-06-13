@@ -11,45 +11,16 @@ import Foundation
 struct SetGame {
   
   private(set) var cards: Array<Card>
+  private(set) var discardPile: Array<Card>
   
   init() {
-    cards = Array<Card>()
+    cards = []
+    discardPile = []
     setUpCardGame()
   }
   
   private var choosenCards: Array<Card> {
     cards.compactMap { $0.isSelected ? $0 : nil }
-  }
-  
-  private func compareFeatures() {
-    
-  }
-  
-  private mutating func verifyMatch() {
-    var isMatched = false
-    for card in choosenCards {
-      if let nextIndex = choosenCards.nextIndex(of: card) {
-        let nextCard = choosenCards[nextIndex]
-        
-        if (card.color == nextCard.color &&
-          card.symbol == nextCard.symbol &&
-          card.shading == nextCard.shading &&
-          card.number == nextCard.number) ||
-          (card.color != nextCard.color &&
-            card.symbol != nextCard.symbol &&
-            card.shading != nextCard.shading &&
-            card.number != nextCard.number) {
-          isMatched = true
-        } else {
-          isMatched = false
-        }
-      }
-    }
-    for card in choosenCards {
-      if let index = cards.firstIndex(matching: card) {
-        cards[index].isMatched = isMatched
-      }
-    }
   }
   
   private mutating func setUpCardGame() {
@@ -75,9 +46,36 @@ struct SetGame {
       choosenCards.count < maximumChoosenCardsPerRound {
       cards[cardIndex].isSelected.toggle()
       if choosenCards.count == maximumChoosenCardsPerRound {
-        verifyMatch()
+        
+        if let firstIndex = cards.firstIndex(matching: choosenCards.first!),
+          let secondIndex = cards.firstIndex(matching: choosenCards.second!),
+          let thirdIndex = cards.firstIndex(matching: choosenCards.third!) {
+          
+          if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
+            print("Match!!")
+            
+            discardPile.append(cards.remove(at: firstIndex))
+            discardPile.append(cards.remove(at: secondIndex))
+            discardPile.append(cards.remove(at: thirdIndex))
+            
+          } else {
+            print("No match!")
+            cards[firstIndex].isSelected = false
+            cards[secondIndex].isSelected = false
+            cards[thirdIndex].isSelected = false
+          }
+        }
       }
     }
+  }
+  
+  private func compareCards(first: Card?, second: Card?, third: Card?) -> Bool {
+    guard let first = first, let second = second, let third = third else { return false }
+    
+    return Card.compare(first: first.color.rawValue, second: second.color.rawValue, third: third.color.rawValue) &&
+      Card.compare(first: first.number.rawValue, second: second.number.rawValue, third: third.number.rawValue) &&
+      Card.compare(first: first.shading.rawValue, second: second.shading.rawValue, third: third.shading.rawValue) &&
+      Card.compare(first: first.symbol.rawValue, second: second.symbol.rawValue, third: third.symbol.rawValue)
   }
   
   func placeCards() -> Array<Card> {
@@ -88,42 +86,4 @@ struct SetGame {
   
   private let maximumCardsFaceUp = 12
   private let maximumChoosenCardsPerRound = 3
-  
-  // MARK: - Card Struct -
-  
-  struct Card: Identifiable, Equatable {
-    let id: String
-    let color: Color
-    let number: Number
-    let shading: Shading
-    let symbol: Symbol
-    var isMatched: Bool
-    var isSelected: Bool
-    
-    init(color: Color, number: Number, shading: Shading, symbol: Symbol) {
-      self.id = UUID().uuidString
-      self.color = color
-      self.number = number
-      self.shading = shading
-      self.symbol = symbol
-      self.isMatched = false
-      self.isSelected = false
-    }
-    
-    enum Color: CaseIterable {
-      case red, green, purple
-    }
-    
-    enum Number: Int, CaseIterable {
-      case one = 1, two, three
-    }
-    
-    enum Shading: CaseIterable {
-      case solid, striped, open
-    }
-    
-    enum Symbol: CaseIterable {
-      case diamond, squiggle, oval
-    }
-  }
 }
