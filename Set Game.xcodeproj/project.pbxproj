@@ -22,6 +22,7 @@
 		2C558C0B248E5CF800FD6F92 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C558C0A248E5CF800FD6F92 /* Diamond.swift */; };
 		2C66FD0224952CE4001BC126 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66FD0124952CE4001BC126 /* Card.swift */; };
 		2C75A5292492F56D0070C7AA /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75A5282492F56D0070C7AA /* SetGame.swift */; };
+		2C96DE02249681A800432CBD /* GeometryProxy+Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C96DE01249681A800432CBD /* GeometryProxy+Center.swift */; };
 		2CFF97A7249311D000D13795 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97A6249311D000D13795 /* Cardify.swift */; };
 		2CFF97AA249316C000D13795 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97A9249316C000D13795 /* CardView.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		2C558C0A248E5CF800FD6F92 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		2C66FD0124952CE4001BC126 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		2C75A5282492F56D0070C7AA /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		2C96DE01249681A800432CBD /* GeometryProxy+Center.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeometryProxy+Center.swift"; sourceTree = "<group>"; };
 		2CFF97A6249311D000D13795 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		2CFF97A9249316C000D13795 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				2C558C05248E5C8900FD6F92 /* Array+Identifiable.swift */,
+				2C96DE01249681A800432CBD /* GeometryProxy+Center.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				2C66FD0224952CE4001BC126 /* Card.swift in Sources */,
 				2C500A7424951D7D00DE6491 /* FeatureComparable.swift in Sources */,
 				2CFF97AA249316C000D13795 /* CardView.swift in Sources */,
+				2C96DE02249681A800432CBD /* GeometryProxy+Center.swift in Sources */,
 				2C558C0B248E5CF800FD6F92 /* Diamond.swift in Sources */,
 				2C558BF0248E5C1100FD6F92 /* SetGameView.swift in Sources */,
 				2C558C02248E5C4600FD6F92 /* Grid.swift in Sources */,

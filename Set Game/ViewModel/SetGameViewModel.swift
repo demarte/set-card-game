@@ -14,7 +14,6 @@ final class SetGameViewModel: ObservableObject {
   
   init() {
     setGame = SetGame()
-    setGame.placeCards()
   }
   
   // MARK: - Access to the Model -
@@ -35,7 +34,11 @@ final class SetGameViewModel: ObservableObject {
     setGame.choose(card: card)
   }
   
-  func dealThreeCards() {
-    setGame.dealThreeCards()
+  func dealMoreCards() {
+    setGame.dealMoreCards()
+  }
+  
+  func newGame() {
+    setGame = SetGame()
   }
 }

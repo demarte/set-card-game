@@ -15,27 +15,42 @@ struct SetGameView: View {
   var body: some View {
     VStack {
       Button("New Game") {
-        print("new game")
+        withAnimation(.linear(duration: 5)) {
+          self.game.newGame()
+        }
       }
-      Spacer()
       Grid(game.gamePile) { card in
         CardView(card: card)
-          .padding(2)
-          .animation(.easeIn(duration: 1))
+          .padding(self.game.gamePile.count > 30 ? 2 : 5)
+          .transition(AnyTransition.scale.combined(with: AnyTransition.offset(self.randomPositionsOffScreen())))
+          .aspectRatio(0.75, contentMode: .fit)
           .onTapGesture {
             self.game.choose(card: card)
         }
       }
-      Spacer()
       Button("Deal 3 More Cards") {
-        self.game.dealThreeCards()
+        withAnimation(.easeInOut(duration: 2)) {
+          self.game.dealMoreCards()
+        }
       }
-      .disabled(game.cards.count > 0 ? false : true)
+      .disabled(game.cards.isEmpty ? true : false)
+    }.onAppear {
+      
+      withAnimation(.easeInOut(duration: 3)) {
+        self.game.placeCards()
+      }
     }
+  }
+  
+  private func randomPositionsOffScreen() -> CGSize {
+    let randomWidth = Int.random(in: 1...1000) * -1
+    let randomHeight = Int.random(in: 1..<1000) * -1
+
+    return CGSize(width: randomWidth , height: randomHeight)
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SetGameView_Previews: PreviewProvider {
   static var previews: some View {
     SetGameView(game: SetGameViewModel())
   }

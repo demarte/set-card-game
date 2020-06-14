@@ -19,22 +19,24 @@ struct CardView: View {
   @ViewBuilder
   private func body(for card: Card) -> some View {
     VStack {
+      Spacer()
       symbol(for: card.number)
         .foregroundColor(self.color())
-      .padding(2)
+      Spacer()
     }
     .cardify(isFaceUp: true)
-    .foregroundColor(card.isSelected ? Color.blue : Color.black)
-    .scaleEffect(card.isSelected ? 1.1 : 1)
-    .animation(Animation.easeIn(duration: 0.1))
+    .foregroundColor(card.isSelected ? Color.blue : Color.gray)
+    .scaleEffect(card.isSelected ? 1.05 : 1)
   }
   
   private func symbol(for number: Card.Number) -> some View {
-    ForEach(0..<Card.Number.allCases.count) { index in
-      self.symbol()
-        .aspectRatio(5, contentMode: .fit)
-//        .opacity(number.rawValue == index + 1 ? 1 : 0)
-      .padding(2)
+    ForEach(0..<number.rawValue) { index in
+      GeometryReader { geometry in
+        self.symbol()
+          .aspectRatio(CGSize(width: geometry.size.width, height: geometry.size.height * 0.25 * CGFloat((number.rawValue))), contentMode: .fit)
+          .padding(self.symbolPadding)
+          .position(geometry.center)
+      }
     }
   }
   
@@ -63,11 +65,22 @@ struct CardView: View {
   private func shading<T : Shape>(for shape: T) -> some View {
     switch card.shading {
     case .open:
-      return AnyView(shape.stroke())
+      return AnyView(shape.stroke(lineWidth: strokeLineWidth))
     case .solid:
       return AnyView(shape.fill())
     case .striped:
       return AnyView(shape.opacity(0.3))
     }
+  }
+  
+  // MARK: - Drawing Constants -
+  
+  private let strokeLineWidth: CGFloat = 2
+  private let symbolPadding = EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+}
+
+struct CardView_Previews: PreviewProvider {
+  static var previews: some View {
+    CardView(card: Card(color: .purple, number: .three, shading: .solid, symbol: .squiggle))
   }
 }

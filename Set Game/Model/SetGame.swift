@@ -53,17 +53,16 @@ struct SetGame {
     if let cardIndex = gamePile.firstIndex(matching: card) {
       if choosenCards.count < maximumChoosenCardsPerRound {
         gamePile[cardIndex].isSelected.toggle()
-
+        
         if choosenCards.count == maximumChoosenCardsPerRound {
-                  
-          if let firstIndex = deck.firstIndex(matching: choosenCards.first!),
-            let secondIndex = deck.firstIndex(matching: choosenCards.second!),
-            let thirdIndex = deck.firstIndex(matching: choosenCards.third!) {
+          
+          if let firstIndex = gamePile.firstIndex(matching: choosenCards.first!),
+            let secondIndex = gamePile.firstIndex(matching: choosenCards.second!),
+            let thirdIndex = gamePile.firstIndex(matching: choosenCards.third!) {
             
             if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
-              discardPile.append(deck.remove(at: firstIndex))
-              discardPile.append(deck.remove(at: secondIndex))
-              discardPile.append(deck.remove(at: thirdIndex))
+              discardPile.append(contentsOf: choosenCards)
+              gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
             }
           }
         }
@@ -74,9 +73,9 @@ struct SetGame {
     }
   }
   
-  mutating func dealThreeCards() {
-    for _ in 0..<numberOfNewCardsPlaced {
-      if deck.count > 0 {
+  mutating func dealMoreCards() {
+    if deck.count > 0 {
+      for _ in 0..<numberOfNewCardsPlaced {
         gamePile.append(deck.removeFirst())
       }
     }
@@ -93,7 +92,7 @@ struct SetGame {
   
   mutating func placeCards() {
     gamePile = deck.suffix(maximumCardsFaceUp)
-//    gamePile = deck
+    deck.remove(atOffsets: IndexSet(integersIn: deck.suffix(maximumCardsFaceUp).indices))
   }
   
   // MARK: - Constants -
