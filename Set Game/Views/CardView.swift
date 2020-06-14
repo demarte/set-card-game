@@ -32,8 +32,8 @@ struct CardView: View {
   private func symbol(for number: Card.Number) -> some View {
     ForEach(0..<Card.Number.allCases.count) { index in
       self.symbol()
-        .aspectRatio(3, contentMode: .fit)
-        .opacity(number.rawValue == index + 1 ? 1 : 0)
+        .aspectRatio(5, contentMode: .fit)
+//        .opacity(number.rawValue == index + 1 ? 1 : 0)
       .padding(2)
     }
   }

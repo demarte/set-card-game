@@ -51,32 +51,30 @@ struct SetGame {
   
   mutating func choose(card: Card) {
     if let cardIndex = gamePile.firstIndex(matching: card) {
-      if choosenCards.count == maximumChoosenCardsPerRound {
+      if choosenCards.count < maximumChoosenCardsPerRound {
+        gamePile[cardIndex].isSelected.toggle()
+
+        if choosenCards.count == maximumChoosenCardsPerRound {
+                  
+          if let firstIndex = deck.firstIndex(matching: choosenCards.first!),
+            let secondIndex = deck.firstIndex(matching: choosenCards.second!),
+            let thirdIndex = deck.firstIndex(matching: choosenCards.third!) {
+            
+            if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
+              discardPile.append(deck.remove(at: firstIndex))
+              discardPile.append(deck.remove(at: secondIndex))
+              discardPile.append(deck.remove(at: thirdIndex))
+            }
+          }
+        }
+      } else {
         deselectAll()
+        gamePile[cardIndex].isSelected = true
       }
-      gamePile[cardIndex].isSelected.toggle()
     }
   }
   
   mutating func dealThreeCards() {
-    if choosenCards.count == maximumChoosenCardsPerRound {
-      
-      if let firstIndex = deck.firstIndex(matching: choosenCards.first!),
-        let secondIndex = deck.firstIndex(matching: choosenCards.second!),
-        let thirdIndex = deck.firstIndex(matching: choosenCards.third!) {
-        
-        if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
-          discardPile.append(deck.remove(at: firstIndex))
-          discardPile.append(deck.remove(at: secondIndex))
-          discardPile.append(deck.remove(at: thirdIndex))
-        }
-      }
-    } else {
-      placeMoreCards()
-    }
-  }
-  
-  private mutating func placeMoreCards() {
     for _ in 0..<numberOfNewCardsPlaced {
       if deck.count > 0 {
         gamePile.append(deck.removeFirst())
