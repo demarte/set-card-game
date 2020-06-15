@@ -24,7 +24,8 @@ struct CardView: View {
         .foregroundColor(self.color())
       Spacer()
     }
-    .cardify(isFaceUp: true)
+    .cardify(isFaceUp: card.isFaceUp)
+    .aspectRatio(self.cardAspectRatio, contentMode: .fit)
   }
   
   private func symbol(for number: Card.Number) -> some View {
@@ -73,8 +74,9 @@ struct CardView: View {
   
   // MARK: - Drawing Constants -
   
-  private let strokeLineWidth: CGFloat = 2
+  private let strokeLineWidth: CGFloat = 1
   private let symbolPadding = EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+  private let cardAspectRatio: CGFloat = 0.75
 }
 
 struct CardView_Previews: PreviewProvider {
