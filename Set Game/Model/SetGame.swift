@@ -40,7 +40,7 @@ struct SetGame {
         }
       }
     }
-    deck.shuffle()
+//    deck.shuffle()
   }
   
   private mutating func deselectAll() {
@@ -59,10 +59,14 @@ struct SetGame {
           if let firstIndex = gamePile.firstIndex(matching: choosenCards.first!),
             let secondIndex = gamePile.firstIndex(matching: choosenCards.second!),
             let thirdIndex = gamePile.firstIndex(matching: choosenCards.third!) {
-            
             if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
+              gamePile[firstIndex].isMatched = true
+              gamePile[secondIndex].isMatched = true
+              gamePile[thirdIndex].isMatched = true
               discardPile.append(contentsOf: choosenCards)
-              gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
+              gamePile.removeAll { $0.isMatched }
+
+//              gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
             }
           }
         }

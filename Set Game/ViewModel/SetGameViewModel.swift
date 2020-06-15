@@ -40,5 +40,6 @@ final class SetGameViewModel: ObservableObject {
   
   func newGame() {
     setGame = SetGame()
+    placeCards()
   }
 }

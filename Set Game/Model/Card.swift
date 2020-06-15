@@ -17,6 +17,7 @@ struct Card: Identifiable, Equatable, FeatureComparable {
   let shading: Shading
   let symbol: Symbol
   var isSelected: Bool
+  var isMatched: Bool
   
   init(color: Color, number: Number, shading: Shading, symbol: Symbol) {
     self.id = UUID().uuidString
@@ -25,6 +26,7 @@ struct Card: Identifiable, Equatable, FeatureComparable {
     self.shading = shading
     self.symbol = symbol
     self.isSelected = false
+    self.isMatched = false
   }
   
   enum Color: Int, CaseIterable {
