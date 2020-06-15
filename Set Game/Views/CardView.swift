@@ -25,8 +25,6 @@ struct CardView: View {
       Spacer()
     }
     .cardify(isFaceUp: true)
-    .foregroundColor(card.isSelected ? Color.blue : Color.gray)
-    .scaleEffect(card.isSelected ? 1.05 : 1)
   }
   
   private func symbol(for number: Card.Number) -> some View {

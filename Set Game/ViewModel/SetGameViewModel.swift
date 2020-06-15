@@ -25,6 +25,10 @@ final class SetGameViewModel: ObservableObject {
   var gamePile: Array<Card> {
     setGame.gamePile
   }
+
+  var mismatch: Bool {
+    setGame.mismatch
+  }
   
   func placeCards() {
     setGame.placeCards()

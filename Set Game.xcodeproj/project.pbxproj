@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		22A929BC248F10AA00E9C0B8 /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A929BB248F10AA00E9C0B8 /* Squiggle.swift */; };
+		22AAB4582497B27300C555F8 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAB4572497B27300C555F8 /* Shake.swift */; };
 		2C4860942492FF3000336FFD /* SetGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4860932492FF3000336FFD /* SetGameViewModel.swift */; };
 		2C500A7424951D7D00DE6491 /* FeatureComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C500A7324951D7D00DE6491 /* FeatureComparable.swift */; };
 		2C558BEC248E5C1100FD6F92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C558BEB248E5C1100FD6F92 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		22A929BB248F10AA00E9C0B8 /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
+		22AAB4572497B27300C555F8 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
 		2C4860932492FF3000336FFD /* SetGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameViewModel.swift; sourceTree = "<group>"; };
 		2C500A7324951D7D00DE6491 /* FeatureComparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureComparable.swift; sourceTree = "<group>"; };
 		2C558BE8248E5C1100FD6F92 /* Set Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Set Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22AAB4592497B28800C555F8 /* Custom Animation */ = {
+			isa = PBXGroup;
+			children = (
+				22AAB4572497B27300C555F8 /* Shake.swift */,
+			);
+			path = "Custom Animation";
+			sourceTree = "<group>";
+		};
 		2C4860952492FFE200336FFD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +125,7 @@
 				2C558C0A248E5CF800FD6F92 /* Diamond.swift */,
 				22A929BB248F10AA00E9C0B8 /* Squiggle.swift */,
 				2CFF97A82493142B00D13795 /* View Modifier */,
+				22AAB4592497B28800C555F8 /* Custom Animation */,
 			);
 			path = "Reusable Views";
 			sourceTree = "<group>";
@@ -248,6 +259,7 @@
 			files = (
 				2C558BEC248E5C1100FD6F92 /* AppDelegate.swift in Sources */,
 				2C75A5292492F56D0070C7AA /* SetGame.swift in Sources */,
+				22AAB4582497B27300C555F8 /* Shake.swift in Sources */,
 				2C558BEE248E5C1100FD6F92 /* SceneDelegate.swift in Sources */,
 				2C4860942492FF3000336FFD /* SetGameViewModel.swift in Sources */,
 				22A929BC248F10AA00E9C0B8 /* Squiggle.swift in Sources */,

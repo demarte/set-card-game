@@ -13,6 +13,10 @@ struct SetGame {
   private(set) var deck: Array<Card>
   private(set) var discardPile: Array<Card>
   private(set) var gamePile: Array<Card>
+
+  private var choosenCards: Array<Card> {
+    gamePile.compactMap { $0.isSelected ? $0 : nil }
+  }
   
   init() {
     deck = []
@@ -20,11 +24,11 @@ struct SetGame {
     gamePile = []
     setUpCardGame()
   }
-  
-  private var choosenCards: Array<Card> {
-    gamePile.compactMap { $0.isSelected ? $0 : nil }
+
+  var mismatch: Bool {
+    choosenCards.count == maximumChoosenCardsPerRound
   }
-  
+
   private mutating func setUpCardGame() {
     for number in Card.Number.allCases {
       for color in Card.Color.allCases {
@@ -34,13 +38,12 @@ struct SetGame {
               color: color,
               number: number,
               shading: shadding,
-              symbol: symbol)
-            )
+              symbol: symbol))
           }
         }
       }
     }
-//    deck.shuffle()
+    //    deck.shuffle()
   }
   
   private mutating func deselectAll() {
@@ -60,13 +63,9 @@ struct SetGame {
             let secondIndex = gamePile.firstIndex(matching: choosenCards.second!),
             let thirdIndex = gamePile.firstIndex(matching: choosenCards.third!) {
             if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
-              gamePile[firstIndex].isMatched = true
-              gamePile[secondIndex].isMatched = true
-              gamePile[thirdIndex].isMatched = true
               discardPile.append(contentsOf: choosenCards)
-              gamePile.removeAll { $0.isMatched }
-
-//              gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
+              gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
+              dealMoreCards()
             }
           }
         }
