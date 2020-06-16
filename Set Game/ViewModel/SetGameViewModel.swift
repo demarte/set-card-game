@@ -30,20 +30,16 @@ final class SetGameViewModel: ObservableObject {
     setGame.mismatch
   }
   
-  func placeCards() {
-    setGame.placeCards()
-  }
-  
   func choose(card: Card) {
     setGame.choose(card: card)
   }
   
-  func dealMoreCards() {
-    setGame.dealMoreCards()
+  func draw(amount: Int = 1) {
+    setGame.draw(amount: amount)
   }
   
   func newGame() {
     setGame = SetGame()
-    placeCards()
+    draw(amount: 12)
   }
 }

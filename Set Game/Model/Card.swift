@@ -26,7 +26,7 @@ struct Card: Identifiable, Equatable, FeatureComparable {
     self.shading = shading
     self.symbol = symbol
     self.isSelected = false
-    self.isFaceUp = true
+    self.isFaceUp = false
   }
   
   enum Color: Int, CaseIterable {

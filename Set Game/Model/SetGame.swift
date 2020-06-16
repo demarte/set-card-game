@@ -62,10 +62,10 @@ struct SetGame {
           if let firstIndex = gamePile.firstIndex(matching: choosenCards.first!),
             let secondIndex = gamePile.firstIndex(matching: choosenCards.second!),
             let thirdIndex = gamePile.firstIndex(matching: choosenCards.third!) {
-            if compareCards(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
+            if compareFeatures(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
               discardPile.append(contentsOf: choosenCards)
               gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
-              dealMoreCards()
+              draw(amount: 3)
             }
           }
         }
@@ -76,26 +76,24 @@ struct SetGame {
     }
   }
   
-  mutating func dealMoreCards() {
-    if deck.count > 0 {
-      for _ in 0..<numberOfNewCardsPlaced {
-        gamePile.append(deck.removeFirst())
+  mutating func draw(amount: Int) {
+    if !deck.isEmpty {
+      let range = deck.count - amount..<deck.count
+      gamePile.append(contentsOf: deck.suffix(amount))
+      deck.removeSubrange(range)
+      for index in gamePile.indices {
+        gamePile[index].isFaceUp = true
       }
     }
   }
   
-  private func compareCards(first: Card?, second: Card?, third: Card?) -> Bool {
+  private func compareFeatures(first: Card?, second: Card?, third: Card?) -> Bool {
     guard let first = first, let second = second, let third = third else { return false }
     
     return Card.compare(first: first.color.rawValue, second: second.color.rawValue, third: third.color.rawValue) &&
       Card.compare(first: first.number.rawValue, second: second.number.rawValue, third: third.number.rawValue) &&
       Card.compare(first: first.shading.rawValue, second: second.shading.rawValue, third: third.shading.rawValue) &&
       Card.compare(first: first.symbol.rawValue, second: second.symbol.rawValue, third: third.symbol.rawValue)
-  }
-  
-  mutating func placeCards() {
-    gamePile = deck.suffix(maximumCardsFaceUp)
-    deck.remove(atOffsets: IndexSet(integersIn: deck.suffix(maximumCardsFaceUp).indices))
   }
   
   // MARK: - Constants -
