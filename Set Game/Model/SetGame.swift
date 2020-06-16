@@ -101,6 +101,39 @@ struct SetGame {
       Card.compare(first: first.symbol.rawValue, second: second.symbol.rawValue, third: third.symbol.rawValue)
   }
   
+  // MARK: - Bonus Time -
+
+  
+  private(set) var bonusTimeLimit: TimeInterval = 60
+  
+  private var pastRoundTime: TimeInterval = 0
+  
+  private var lastRoundTime: Date?
+  
+  private var roundTime: TimeInterval {
+    if let lastRoundTime = self.lastRoundTime {
+      return pastRoundTime + Date().timeIntervalSince(lastRoundTime)
+    } else {
+      return pastRoundTime
+    }
+  }
+  
+  var hasEarnedBonus: Bool {
+    bonusTimeLimit - roundTime > 0
+  }
+  
+  private mutating func startUsingBonusTime() {
+    if lastRoundTime == nil {
+      lastRoundTime = Date()
+    }
+  }
+  
+  private mutating func stopUsingBonusTime() {
+    pastRoundTime = roundTime
+    self.lastRoundTime = nil
+  }
+  
+  
   // MARK: - Constants -
   
   private let maximumCardsFaceUp = 12
