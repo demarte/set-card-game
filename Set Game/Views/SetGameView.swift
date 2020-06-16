@@ -18,9 +18,13 @@ struct SetGameView: View {
   
   private func body(for game: SetGameViewModel) -> some View {
     VStack {
-      Button("New Game") {
-        withAnimation(.linear(duration: 2)) {
-          game.newGame()
+      HStack(spacing: 20) {
+        Text("Score: \(game.score)")
+          .font(Font.headline)
+        Button("New Game") {
+          withAnimation(.linear(duration: 2)) {
+            game.newGame()
+          }
         }
       }
       Grid(game.gamePile) { card in

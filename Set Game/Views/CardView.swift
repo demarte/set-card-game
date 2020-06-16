@@ -19,10 +19,8 @@ struct CardView: View {
   @ViewBuilder
   private func body(for card: Card) -> some View {
     VStack {
-      Spacer()
       symbol(for: card.number)
         .foregroundColor(self.color())
-      Spacer()
     }
     .cardify(isFaceUp: card.isFaceUp)
     .aspectRatio(self.cardAspectRatio, contentMode: .fit)
@@ -81,6 +79,8 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
-    CardView(card: Card(color: .purple, number: .three, shading: .solid, symbol: .squiggle))
+    var card = Card(color: .purple, number: .three, shading: .solid, symbol: .squiggle)
+    card.isFaceUp = true
+    return CardView(card: card)
   }
 }

@@ -13,6 +13,7 @@ struct SetGame {
   private(set) var deck: Array<Card>
   private(set) var discardPile: Array<Card>
   private(set) var gamePile: Array<Card>
+  private(set) var score: Int
 
   private var choosenCards: Array<Card> {
     gamePile.compactMap { $0.isSelected ? $0 : nil }
@@ -22,6 +23,7 @@ struct SetGame {
     deck = []
     discardPile = []
     gamePile = []
+    score = 0
     setUpCardGame()
   }
 
@@ -63,9 +65,12 @@ struct SetGame {
             let secondIndex = gamePile.firstIndex(matching: choosenCards.second!),
             let thirdIndex = gamePile.firstIndex(matching: choosenCards.third!) {
             if compareFeatures(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
+              score += 2
               discardPile.append(contentsOf: choosenCards)
               gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
               draw(amount: 3)
+            } else {
+              score -= 1
             }
           }
         }

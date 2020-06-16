@@ -18,6 +18,10 @@ final class SetGameViewModel: ObservableObject {
   
   // MARK: - Access to the Model -
   
+  var score: Int {
+    setGame.score
+  }
+  
   var deck: Array<Card> {
     setGame.deck
   }
