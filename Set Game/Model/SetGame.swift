@@ -90,29 +90,24 @@ struct SetGame {
             if compareFeatures(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
               calculateBonus(for: choosenCards)
               discardPile.append(contentsOf: choosenCards)
-              gamePile[firstIndex].isMatched = true
-              gamePile[secondIndex].isMatched = true
-              gamePile[thirdIndex].isMatched = true
               gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
               draw(amount: 3)
             } else {
-              score -= 1
-              gamePile[firstIndex].isMatched = false
-              gamePile[secondIndex].isMatched = false
-              gamePile[thirdIndex].isMatched = false
+              score -= 3
+              gamePile[firstIndex].misMatch = true
+              gamePile[secondIndex].misMatch = true
+              gamePile[thirdIndex].misMatch = true
+              deselectAll()
             }
           }
         }
-      } else {
-        deselectAll()
-        gamePile[cardIndex].isSelected = true
       }
     }
   }
 
   private mutating func cleanMismatch() {
     for index in gamePile.indices {
-      gamePile[index].isMatched = nil
+      gamePile[index].misMatch = false
     }
   }
 

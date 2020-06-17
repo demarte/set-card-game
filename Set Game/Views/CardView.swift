@@ -43,22 +43,15 @@ struct CardView: View {
     .cardify(isFaceUp: card.isFaceUp)
     .aspectRatio(self.cardAspectRatio, contentMode: .fit)
     .foregroundColor(borderColor(for: card))
-    .shake(times: self.cardStatus())
+    .shake(times: card.misMatch ? 1 : 0)
 
-  }
-
-  private func cardStatus() -> Int {
-    if let isMatched = card.isMatched {
-      return isMatched ? 0 : 1
-    }
-    return 0
   }
 
   private func borderColor(for card: Card) -> Color {
-    if card.isMatched == nil {
-      return card.isSelected ? Color.blue : Color.gray
+    if card.misMatch {
+      return Color.red
     } else {
-      return card.isMatched! ? Color.gray : Color.red
+      return card.isSelected ? Color.blue : Color.gray
     }
   }
   
