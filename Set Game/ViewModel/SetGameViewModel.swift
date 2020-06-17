@@ -29,6 +29,10 @@ final class SetGameViewModel: ObservableObject {
   var gamePile: Array<Card> {
     setGame.gamePile
   }
+  
+  var hasChooseCards: Bool {
+    !setGame.choosenCards.isEmpty
+  }
 
   func choose(card: Card) {
     setGame.choose(card: card)
@@ -40,6 +44,10 @@ final class SetGameViewModel: ObservableObject {
 
   func dealMore() {
     setGame.dealMore()
+  }
+  
+  func hint() {
+    setGame.hint()
   }
   
   func newGame() {

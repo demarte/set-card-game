@@ -15,8 +15,10 @@ struct SetGame {
   private(set) var gamePile: Array<Card>
   private(set) var score: Int
 
-  private var choosenCards: Array<Card> {
-    gamePile.compactMap { $0.isSelected ? $0 : nil }
+  var choosenCards: Array<Card> {
+    get {
+      gamePile.compactMap { $0.isSelected ? $0 : nil }
+    }
   }
   
   init() {
@@ -44,21 +46,28 @@ struct SetGame {
     deck.shuffle()
   }
 
-  private func hasMatchesAvailable() -> Bool {
+  private func hasMatchesAvailable() -> (first: Card, second: Card, third: Card)? {
     if gamePile.count >= maximumChoosenCardsPerRound {
       for first in gamePile {
         for second in gamePile {
           for third in gamePile {
             if (first != second && second != third) {
               if compareFeatures(first: first, second: second, third: third) {
-                return true
+                return (first: first, second: second, third: third)
               }
             }
           }
         }
       }
     }
-    return false
+    return nil
+  }
+  
+  mutating func hint() {
+    if let cards = hasMatchesAvailable(), choosenCards.isEmpty {
+      choose(card: cards.first)
+      choose(card: cards.second)
+    }
   }
   
   private mutating func deselectAll() {
@@ -129,7 +138,7 @@ struct SetGame {
   }
 
   mutating func dealMore() {
-    if hasMatchesAvailable() {
+    if hasMatchesAvailable() != nil {
       score -= 2
     }
     draw(amount: numberOfNewCardsPlaced)

@@ -26,6 +26,12 @@ struct SetGameView: View {
             game.newGame()
           }
         }
+        Button("Hint") {
+          withAnimation(.linear(duration: 0.3)) {
+            game.hint()
+          }
+        }
+        .disabled(game.hasChooseCards)
       }
       Grid(game.gamePile) { card in
         CardView(card: card)
