@@ -18,7 +18,7 @@ struct SetGameView: View {
   
   private func body(for game: SetGameViewModel) -> some View {
     VStack {
-      HStack {
+      HStack(spacing: topContainerSpacing) {
         Text("Score: \(game.score)")
           .font(Font.headline)
         Button("New Game") {
@@ -53,7 +53,7 @@ struct SetGameView: View {
         if !self.game.deck.isEmpty {
           ForEach(self.game.deck.reversed()) { card in
             CardView(card: card)
-              .rotationEffect(Angle.degrees(90))
+              .rotationEffect(Angle.degrees(self.deckRotation))
               .foregroundColor(Color.gray)
           }
         }
@@ -63,20 +63,22 @@ struct SetGameView: View {
           self.game.dealMore()
         }
       }
-      .frame(width: 80, height: 60)
+      .frame(width: deckWidth, height: deckHeigth)
     }
   }
   
   private func randomPositionsOffScreen() -> CGSize {
-    let randomWidth = Int.random(in: -2000...2000)
-    let randomHeight = Int.random(in: -2000..<2000)
+    let randomWidth = Int.random(in: randomRange)
+    let randomHeight = Int.random(in: randomRange)
     return CGSize(width: randomWidth , height: randomHeight)
   }
   
   // MARK: - Constants -
-  
-  private let screenWidth = UIScreen.main.bounds.width
-  private let screenHeight = UIScreen.main.bounds.height
+  private let topContainerSpacing: CGFloat = 40
+  private let randomRange = -2000..<2000
+  private let deckWidth: CGFloat = 80
+  private let deckHeigth: CGFloat = 60
+  private let deckRotation: Double = 90
 }
 
 struct SetGameView_Previews: PreviewProvider {

@@ -95,12 +95,13 @@ struct CardView: View {
     case .solid:
       return AnyView(shape.fill())
     case .striped:
-      return AnyView(shape.opacity(0.3))
+      return AnyView(shape.opacity(stripedOpcity))
     }
   }
   
   // MARK: - Drawing Constants -
   
+  private let stripedOpcity: Double = 0.3
   private let strokeLineWidth: CGFloat = 1
   private let symbolPadding = EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
   private let cardAspectRatio: CGFloat = 0.75
