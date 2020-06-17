@@ -16,8 +16,17 @@ struct Card: Identifiable, Equatable, FeatureComparable {
   let number: Number
   let shading: Shading
   let symbol: Symbol
-  var isSelected: Bool
   var isFaceUp: Bool
+  var isMatched: Bool?
+  var isSelected: Bool {
+    didSet {
+      if isSelected {
+        startUsingBonusTime()
+      } else {
+        stopUsingBonusTime()
+      }
+    }
+  }
 
   init(color: Color, number: Number, shading: Shading, symbol: Symbol) {
     self.id = UUID().uuidString
@@ -43,5 +52,62 @@ struct Card: Identifiable, Equatable, FeatureComparable {
   
   enum Symbol: Int, CaseIterable {
     case diamond, squiggle, oval
+  }
+
+  // MARK: - Bonus Time -
+
+  // this could give matching bonus points
+  // if the user matches the card
+  // before a certain amount of time passes during which the card is face up
+
+  // can be zero with means "no bonus available" for this card
+  var bonusTimeLimit: TimeInterval = 10
+
+  // the last time this card was turned face up (and still face up)
+  var lastTimeFaceUp: Date?
+  // the accumulated time this card has been face up in the past
+  // (i.e. not including the current time it's been face up if it is currently so)
+  var pastFaceUpTime: TimeInterval = 0
+
+  // how long this card has ever been face up
+  private var faceUpTime: TimeInterval {
+    if let lastFaceUpDate = self.lastTimeFaceUp {
+      return pastFaceUpTime + Date().timeIntervalSince(lastFaceUpDate)
+    } else {
+      return pastFaceUpTime
+    }
+  }
+
+  // how much time left before the bonus opportunity runs out
+  var bonusTimeRemaining: TimeInterval {
+    max(0, bonusTimeLimit - faceUpTime)
+  }
+
+  // percentage of bonus time remaining
+  var bonusRemaining: Double {
+    (bonusTimeLimit > 0 && bonusTimeRemaining > 0) ? bonusTimeRemaining / bonusTimeLimit : 0
+  }
+
+  // whether the card was matched during the bonus time period
+  var hasEarnedBonus: Bool {
+   bonusTimeRemaining > 0
+  }
+
+  // whether we are currently face up, unmatched and have not yet used up the bonus window
+  var isConsumingBonusTime: Bool {
+    isSelected && bonusTimeRemaining > 0 && isMatched == nil
+  }
+
+  // called when the card transitions to face up state
+  private mutating func startUsingBonusTime() {
+    if isConsumingBonusTime, lastTimeFaceUp == nil {
+      lastTimeFaceUp = Date()
+    }
+  }
+
+  // called when the card goes back down (or gets matched)
+  private mutating func stopUsingBonusTime() {
+    pastFaceUpTime = faceUpTime
+    self.lastTimeFaceUp = nil
   }
 }

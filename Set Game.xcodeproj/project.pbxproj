@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22896D27249947020022BE32 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22896D26249947020022BE32 /* Pie.swift */; };
 		22A929BC248F10AA00E9C0B8 /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A929BB248F10AA00E9C0B8 /* Squiggle.swift */; };
 		22AAB4582497B27300C555F8 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAB4572497B27300C555F8 /* Shake.swift */; };
 		2C4860942492FF3000336FFD /* SetGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4860932492FF3000336FFD /* SetGameViewModel.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		22896D26249947020022BE32 /* Pie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		22A929BB248F10AA00E9C0B8 /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
 		22AAB4572497B27300C555F8 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
 		2C4860932492FF3000336FFD /* SetGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameViewModel.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				2C558C04248E5C7000FD6F92 /* Grid */,
 				2C558C0A248E5CF800FD6F92 /* Diamond.swift */,
+				22896D26249947020022BE32 /* Pie.swift */,
 				22A929BB248F10AA00E9C0B8 /* Squiggle.swift */,
 				2CFF97A82493142B00D13795 /* View Modifier */,
 				22AAB4592497B28800C555F8 /* Custom Animation */,
@@ -270,6 +273,7 @@
 				2C96DE02249681A800432CBD /* GeometryProxy+Center.swift in Sources */,
 				2C558C0B248E5CF800FD6F92 /* Diamond.swift in Sources */,
 				2C558BF0248E5C1100FD6F92 /* SetGameView.swift in Sources */,
+				22896D27249947020022BE32 /* Pie.swift in Sources */,
 				2C558C02248E5C4600FD6F92 /* Grid.swift in Sources */,
 				2C558C01248E5C4600FD6F92 /* GridLayout.swift in Sources */,
 				2C558C06248E5C8900FD6F92 /* Array+Identifiable.swift in Sources */,

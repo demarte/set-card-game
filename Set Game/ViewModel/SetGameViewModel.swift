@@ -30,10 +30,6 @@ final class SetGameViewModel: ObservableObject {
     setGame.gamePile
   }
 
-  var mismatch: Bool {
-    setGame.mismatch
-  }
-  
   func choose(card: Card) {
     setGame.choose(card: card)
   }

@@ -27,10 +27,6 @@ struct SetGame {
     setUpCardGame()
   }
 
-  var mismatch: Bool {
-    choosenCards.count == maximumChoosenCardsPerRound
-  }
-
   private mutating func setUpCardGame() {
     for number in Card.Number.allCases {
       for color in Card.Color.allCases {
@@ -55,6 +51,7 @@ struct SetGame {
   }
   
   mutating func choose(card: Card) {
+    cleanMismatch()
     if let cardIndex = gamePile.firstIndex(matching: card) {
       if choosenCards.count < maximumChoosenCardsPerRound {
         gamePile[cardIndex].isSelected.toggle()
@@ -65,12 +62,18 @@ struct SetGame {
             let secondIndex = gamePile.firstIndex(matching: choosenCards.second!),
             let thirdIndex = gamePile.firstIndex(matching: choosenCards.third!) {
             if compareFeatures(first: choosenCards.first, second: choosenCards.second, third: choosenCards.third) {
-              score += 2
+              calculateBonus(for: choosenCards)
               discardPile.append(contentsOf: choosenCards)
+              gamePile[firstIndex].isMatched = true
+              gamePile[secondIndex].isMatched = true
+              gamePile[thirdIndex].isMatched = true
               gamePile.remove(atOffsets: IndexSet(arrayLiteral: firstIndex, secondIndex, thirdIndex))
               draw(amount: 3)
             } else {
               score -= 1
+              gamePile[firstIndex].isMatched = false
+              gamePile[secondIndex].isMatched = false
+              gamePile[thirdIndex].isMatched = false
             }
           }
         }
@@ -79,6 +82,22 @@ struct SetGame {
         gamePile[cardIndex].isSelected = true
       }
     }
+  }
+
+  private mutating func cleanMismatch() {
+    for index in gamePile.indices {
+      gamePile[index].isMatched = nil
+    }
+  }
+
+  private mutating func calculateBonus(for cards: Array<Card>) {
+    var hasBonus = true
+    cards.forEach { card in
+      if !card.hasEarnedBonus {
+        hasBonus = false
+      }
+    }
+    score += hasBonus ? 3 : 2
   }
   
   mutating func draw(amount: Int) {
@@ -100,39 +119,6 @@ struct SetGame {
       Card.compare(first: first.shading.rawValue, second: second.shading.rawValue, third: third.shading.rawValue) &&
       Card.compare(first: first.symbol.rawValue, second: second.symbol.rawValue, third: third.symbol.rawValue)
   }
-  
-  // MARK: - Bonus Time -
-
-  
-  private(set) var bonusTimeLimit: TimeInterval = 60
-  
-  private var pastRoundTime: TimeInterval = 0
-  
-  private var lastRoundTime: Date?
-  
-  private var roundTime: TimeInterval {
-    if let lastRoundTime = self.lastRoundTime {
-      return pastRoundTime + Date().timeIntervalSince(lastRoundTime)
-    } else {
-      return pastRoundTime
-    }
-  }
-  
-  var hasEarnedBonus: Bool {
-    bonusTimeLimit - roundTime > 0
-  }
-  
-  private mutating func startUsingBonusTime() {
-    if lastRoundTime == nil {
-      lastRoundTime = Date()
-    }
-  }
-  
-  private mutating func stopUsingBonusTime() {
-    pastRoundTime = roundTime
-    self.lastRoundTime = nil
-  }
-  
   
   // MARK: - Constants -
   

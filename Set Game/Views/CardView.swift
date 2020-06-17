@@ -9,21 +9,57 @@
 import SwiftUI
 
 struct CardView: View {
-  
+
+  @State private var animatedBonusRemaining: Double = 0
   var card: Card
   
   var body: some View {
     body(for: card)
   }
+
+  private func startBonusTimeAnimation() {
+    animatedBonusRemaining = card.bonusRemaining
+    withAnimation(.linear(duration: card.bonusTimeRemaining)) {
+      animatedBonusRemaining = 0
+    }
+  }
   
   @ViewBuilder
   private func body(for card: Card) -> some View {
     VStack {
+      if card.isConsumingBonusTime {
+        Pie(
+          startAngle: Angle.degrees(0 - 90),
+          endAngle: Angle.degrees(-animatedBonusRemaining * 360 - 90),
+          clockwise: true
+        )
+        .onAppear {
+          self.startBonusTimeAnimation()
+        }
+      }
       symbol(for: card.number)
         .foregroundColor(self.color())
     }
     .cardify(isFaceUp: card.isFaceUp)
     .aspectRatio(self.cardAspectRatio, contentMode: .fit)
+    .foregroundColor(borderColor(for: card))
+    .shake(times: self.cardStatus())
+
+  }
+
+  private func cardStatus() -> Int {
+    if let isMatched = card.isMatched {
+      return isMatched ? 0 : 1
+    }
+    return 0
+  }
+
+  private func borderColor(for card: Card) -> Color {
+    if card.isMatched == nil {
+      return card.isSelected ? Color.blue : Color.gray
+    } else {
+      return card.isMatched! ? Color.gray : Color.red
+    }
   }
   
   private func symbol(for number: Card.Number) -> some View {

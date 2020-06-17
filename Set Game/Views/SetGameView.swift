@@ -9,19 +9,17 @@
 import SwiftUI
 
 struct SetGameView: View {
-  
+
   @ObservedObject var game: SetGameViewModel
-  
+
   var body: some View {
     body(for: game)
   }
   
   private func body(for game: SetGameViewModel) -> some View {
     VStack {
-      HStack(spacing: 20) {
+      HStack {
         Text("Score: \(game.score)")
-          .font(Font.headline)
-        Text("Time: \(game.score)")
           .font(Font.headline)
         Button("New Game") {
           withAnimation(.linear(duration: 2)) {
@@ -33,13 +31,16 @@ struct SetGameView: View {
         CardView(card: card)
           .padding(game.gamePile.count > 30 ? 2 : 5)
           .transition(.offset(self.randomPositionsOffScreen()))
-          .shake(times: game.mismatch ? 1 : 0)
-          .foregroundColor(self.borderColor(for: card))
           .scaleEffect(card.isSelected ? 1.03 : 1)
           .onTapGesture {
             withAnimation(.easeInOut(duration: 0.3)) {
               game.choose(card: card)
             }
+        }
+      }
+      .onAppear {
+        withAnimation(.linear(duration: 2)) {
+          self.game.draw(amount: 12)
         }
       }
       ZStack {
@@ -57,23 +58,7 @@ struct SetGameView: View {
         }
       }
       .frame(width: 80, height: 60)
-    }.onAppear {
-      withAnimation(.linear(duration: 2)) {
-        self.game.draw(amount: 12)
-      }
     }
-  }
-  
-  private func borderColor(for card: Card) -> Color {
-    if card.isSelected {
-      return game.mismatch ? Color.red : Color.blue
-    } else {
-      return Color.gray
-    }
-  }
-  
-  var borderColor: Color {
-    game.mismatch ? Color.red : Color.gray
   }
   
   private func randomPositionsOffScreen() -> CGSize {
