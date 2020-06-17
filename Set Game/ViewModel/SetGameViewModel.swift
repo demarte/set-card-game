@@ -37,6 +37,10 @@ final class SetGameViewModel: ObservableObject {
   func draw(amount: Int = 1) {
     setGame.draw(amount: amount)
   }
+
+  func dealMore() {
+    setGame.dealMore()
+  }
   
   func newGame() {
     setGame = SetGame()

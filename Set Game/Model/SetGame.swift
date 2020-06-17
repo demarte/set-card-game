@@ -41,7 +41,24 @@ struct SetGame {
         }
       }
     }
-    //    deck.shuffle()
+    deck.shuffle()
+  }
+
+  private func hasMatchesAvailable() -> Bool {
+    if gamePile.count >= maximumChoosenCardsPerRound {
+      for first in gamePile {
+        for second in gamePile {
+          for third in gamePile {
+            if (first != second && second != third) {
+              if compareFeatures(first: first, second: second, third: third) {
+                return true
+              }
+            }
+          }
+        }
+      }
+    }
+    return false
   }
   
   private mutating func deselectAll() {
@@ -57,7 +74,7 @@ struct SetGame {
         gamePile[cardIndex].isSelected.toggle()
         
         if choosenCards.count == maximumChoosenCardsPerRound {
-          
+
           if let firstIndex = gamePile.firstIndex(matching: choosenCards.first!),
             let secondIndex = gamePile.firstIndex(matching: choosenCards.second!),
             let thirdIndex = gamePile.firstIndex(matching: choosenCards.third!) {
@@ -109,6 +126,13 @@ struct SetGame {
         gamePile[index].isFaceUp = true
       }
     }
+  }
+
+  mutating func dealMore() {
+    if hasMatchesAvailable() {
+      score -= 2
+    }
+    draw(amount: numberOfNewCardsPlaced)
   }
   
   private func compareFeatures(first: Card?, second: Card?, third: Card?) -> Bool {

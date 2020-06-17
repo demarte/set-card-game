@@ -54,7 +54,7 @@ struct SetGameView: View {
       }
       .onTapGesture {
         withAnimation(.easeInOut(duration: 1)) {
-          self.game.draw(amount: 3)
+          self.game.dealMore()
         }
       }
       .frame(width: 80, height: 60)
