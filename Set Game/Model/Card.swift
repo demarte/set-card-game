@@ -17,7 +17,7 @@ struct Card: Identifiable, Equatable, FeatureComparable {
   let shading: Shading
   let symbol: Symbol
   var isFaceUp: Bool
-  var misMatch: Bool
+  var mismatch: Bool
   var isSelected: Bool {
     didSet {
       if isSelected {
@@ -36,7 +36,7 @@ struct Card: Identifiable, Equatable, FeatureComparable {
     self.symbol = symbol
     self.isSelected = false
     self.isFaceUp = false
-    self.misMatch = false
+    self.mismatch = false
   }
   
   enum Color: Int, CaseIterable {
@@ -96,7 +96,7 @@ struct Card: Identifiable, Equatable, FeatureComparable {
 
   // whether we are currently face up, unmatched and have not yet used up the bonus window
   var isConsumingBonusTime: Bool {
-    isSelected && bonusTimeRemaining > 0 && !misMatch
+    isSelected && bonusTimeRemaining > 0 && !mismatch
   }
 
   // called when the card transitions to face up state

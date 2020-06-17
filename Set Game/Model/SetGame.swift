@@ -94,9 +94,9 @@ struct SetGame {
               draw(amount: 3)
             } else {
               score -= 3
-              gamePile[firstIndex].misMatch = true
-              gamePile[secondIndex].misMatch = true
-              gamePile[thirdIndex].misMatch = true
+              gamePile[firstIndex].mismatch = true
+              gamePile[secondIndex].mismatch = true
+              gamePile[thirdIndex].mismatch = true
               deselectAll()
             }
           }
@@ -107,7 +107,7 @@ struct SetGame {
 
   private mutating func cleanMismatch() {
     for index in gamePile.indices {
-      gamePile[index].misMatch = false
+      gamePile[index].mismatch = false
     }
   }
 
